@@ -9,4 +9,31 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(keras)
+library(tensorflow)
+```
+
+
+## PREPROCESSING
+#################
+
+```{r}
+# can comment entire section out if no changes to pre-processing.R
+
+source('scripts/preprocessing.R')
+
+# load raw data
+load('data/claims-raw.RData')
+
+# preprocess (will take a minute or two)
+claims_clean <- claims_raw %>%
+  parse_data()
+
+# export
+save(claims_clean, file = 'data/claims-clean-example.RData')
+```
+
 
