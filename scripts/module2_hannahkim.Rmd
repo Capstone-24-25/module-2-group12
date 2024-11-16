@@ -1,0 +1,12 @@
+---
+title: "Hannah Kim q4"
+author: "Hannah Kim"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
