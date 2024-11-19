@@ -1,5 +1,4 @@
-## this script contains functions for preprocessing
-## claims data; intended to be sourced 
+
 require(tidyverse)
 require(tidytext)
 require(textstem)
@@ -24,7 +23,6 @@ source(paste(url, 'projection-functions.R', sep = ''))
 
 ####### NO HEADERS #########
 ## function to parse html and clean text
-
 parse_fn <- function(.html){
   read_html(.html) %>%
     html_elements('p') %>% #paragraph elements
