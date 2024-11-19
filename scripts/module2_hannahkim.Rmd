@@ -19,21 +19,73 @@ library(tensorflow)
 
 ## PREPROCESSING
 #################
-
 ```{r}
-# can comment entire section out if no changes to pre-processing.R
+# load cleaned data
+load('data/claims-clean-example.RData')
+claims_clean<-cleaned_claims
 
-source('scripts/preprocessing.R')
+# splitting into training and testing
+set.seed(3435)
+partitions <- initial_split(claims_clean, prop = 0.8)
 
-# load raw data
-load('data/claims-raw.RData')
-
-# preprocess (will take a minute or two)
-claims_clean <- claims_raw %>%
-  parse_data()
-
-# export
-save(claims_clean, file = 'data/claims-clean-example.RData')
+train_data <- training(partiions)
+test_data <- testing(partiions)
 ```
 
+## Tokenization
+#################
+```{r}
+tokenizer <- text_tokenizer(num_words = 5000)
+tokenizer %>% fit_text_tokenizer(claims_clean$text_clean)
+
+# Convert text to sequences
+sequences <- texts_to_sequences(tokenizer, claims_clean$text_clean)
+# Set sequence length
+maxlen <- 100 
+# Set equal length
+same_len_data <- pad_sequences(sequences, maxlen = maxlen)
+claims_clean <- claims_clean %>% 
+  mutate(sequences = same_len_data)
+
+# Encode binary label
+claims_clean <- claims_clean %>% 
+  mutate(y_binary = to_categorical(as.numeric(as.factor(claims_clean$bclass))-1))
+
+# Binary label
+y_train <- train_data$y_binary
+y_test <- test_data$y_binary
+```
+
+
+# Build RNN model for binary classification
+```{r}
+rnn_model <- keras_model_sequential()
+rnn_model %>%
+  layer_embedding(input_dim = 5000, output_dim = 128, input_length = maxlen) %>%  # Embedding layer
+  layer_simple_rnn(units = 64, return_sequences = FALSE) %>%  # RNN layer
+  layer_dense(units = 2) %>%  # Dense layer
+  layer_activation(activation = 'sigmoid')  # Activation layer
+
+summary(rnn_model)
+
+rnn_model %>% compile(
+  loss = 'binary_crossentropy',
+  optimizer = 'adam',
+  metrics = c('binary_accuracy')
+)
+
+
+# Train the binary classification model
+history_binary <- binary_model %>% fit(
+  X_train, y_train_binary,
+  epochs = 10,
+  batch_size = 32
+)
+
+binary_pred<-predict(binary_model, X_test)
+bclass_pred <- factor(ifelse(binary_pred[,2] > 0.5, 1, 0), levels = c(0, 1))
+
+conf_matrix_binary <- confusionMatrix(bclass_pred, as.factor(as.numeric(test_data$bclass)-1))
+conf_matrix_binary
+```
 
