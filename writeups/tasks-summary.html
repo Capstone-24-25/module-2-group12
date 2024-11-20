@@ -79,7 +79,14 @@ ul.task-list li input[type="checkbox"] {
 <section id="html-scraping" class="level3">
 <h3 class="anchored" data-anchor-id="html-scraping">HTML scraping</h3>
 <p>Does including header content improve predictions? Answer the question and provide quantitative evidence supporting your answer.</p>
-<p><img src="images/figure1.png" class="img-fluid" width="477"> <img src="images/figure2.png" class="img-fluid" width="477"> ### Bigrams</p>
+<p><img src="images/figure1.png" class="img-fluid" width="477"></p>
+<p><img src="images/figure2.png" class="img-fluid" width="477"></p>
+<blockquote class="blockquote">
+<p><em>The first graph above shows the results without including the header, while the second graph reflects the results with the header included. All metrics improved after incorporating the header. The area under the curve increased 0.011, which indicates better discriminatory power. The increased classification power indicates that headers also include some useful information.</em></p>
+</blockquote>
+</section>
+<section id="bigrams" class="level3">
+<h3 class="anchored" data-anchor-id="bigrams">Bigrams</h3>
 <p>Do bigrams capture additional information relevant to the classification of interest? Answer the question, <strong>briefly</strong> describe what analysis you conducted to arrive at your answer, and provide quantitative evidence supporting your answer.</p>
 <blockquote class="blockquote">
 <p><em>Bigrams capture additional information relevant to the classification of interest, as evidenced by the reduction in AIC from 2372.394 (unigram model) to 2335.656 (bigram-enhanced model). AIC measures model quality, balancing goodness of fit and model complexity, with lower values indicating better models. To arrive at this conclusion, we trained logistic regression models on unigram and bigram features, incorporating principal components from PCA to reduce dimensionality. By comparing the AIC values, we observed a notable improvement (~36.7 points) with the inclusion of bigrams, suggesting that bigram features provide additional meaningful context that unigrams alone cannot capture.</em></p>
