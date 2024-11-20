@@ -12,7 +12,8 @@ Does including header content improve predictions? Answer the question and provi
 
 ![](images/figure2.png){width="477"}
 
-The first graph above shows the results without including the header, while the second graph reflects the results with the header included. All metrics improved after incorporating the header. The area under the curve increased 0.011, which indicates better discriminatory power. 
+The first graph above shows the results without including the header, while the second graph reflects the results with the header included. All metrics improved after incorporating the header. The area under the curve increased 0.011, which indicates better discriminatory power. The increased classification power indicates that headers also include some useful information.  
+
 ### Bigrams
 
 Do bigrams capture additional information relevant to the classification of interest? Answer the question, **briefly** describe what analysis you conducted to arrive at your answer, and provide quantitative evidence supporting your answer.
