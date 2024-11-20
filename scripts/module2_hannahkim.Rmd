@@ -20,72 +20,82 @@ library(tensorflow)
 ## PREPROCESSING
 #################
 ```{r}
-# load cleaned data
-load('data/claims-clean-example.RData')
-claims_clean<-cleaned_claims
+source('C:/Users/hanna/OneDrive/Documents/GitHub/module-2-group12/scripts/preprocessing.R')
 
-# splitting into training and testing
-set.seed(3435)
-partitions <- initial_split(claims_clean, prop = 0.8)
+# load raw data
+load('C:/Users/hanna/OneDrive/Documents/GitHub/module-2-group12/data/claims-raw.RData')
 
-train_data <- training(partiions)
-test_data <- testing(partiions)
+# preprocess (will take a minute or two)
+claims_clean <- claims_raw %>%
+  parse_data()
+
+# export
+save(claims_clean, file = 'C:/Users/hanna/OneDrive/Documents/GitHub/module-2-group12/data/claims-clean.RData')
 ```
 
-## Tokenization
+## MODEL TRAINING
 #################
 ```{r}
-tokenizer <- text_tokenizer(num_words = 5000)
-tokenizer %>% fit_text_tokenizer(claims_clean$text_clean)
+load('C:/Users/hanna/OneDrive/Documents/GitHub/module-2-group12/data/claims-clean.RData')
 
-# Convert text to sequences
-sequences <- texts_to_sequences(tokenizer, claims_clean$text_clean)
-# Set sequence length
-maxlen <- 100 
-# Set equal length
-same_len_data <- pad_sequences(sequences, maxlen = maxlen)
-claims_clean <- claims_clean %>% 
-  mutate(sequences = same_len_data)
+claims_dtm <- nlp_fn(claims_clean)
 
-# Encode binary label
-claims_clean <- claims_clean %>% 
-  mutate(y_binary = to_categorical(as.numeric(as.factor(claims_clean$bclass))-1))
+# Partitioning data
+set.seed(1000)
+partitions <- claims_dtm %>%
+  initial_split(prop = 0.8)
 
-# Binary label
-y_train <- train_data$y_binary
-y_test <- test_data$y_binary
-```
+train_dtm <- training(partitions)
+test_dtm <- testing(partitions)
 
+# Tokenization
+top_idf_tokens <- colSums(train_dtm[, -1:-2], na.rm=TRUE) %>%
+  sort(decreasing=TRUE) %>%
+  head(1000) %>%
+  names()
 
-# Build RNN model for binary classification
-```{r}
-rnn_model <- keras_model_sequential()
-rnn_model %>%
-  layer_embedding(input_dim = 5000, output_dim = 128, input_length = maxlen) %>%  # Embedding layer
-  layer_simple_rnn(units = 64, return_sequences = FALSE) %>%  # RNN layer
-  layer_dense(units = 2) %>%  # Dense layer
-  layer_activation(activation = 'sigmoid')  # Activation layer
+# Training and testing sets
+x_train <- train_dtm %>%
+  ungroup() %>%
+  select(-.id, -bclass) %>%
+  select(all_of(top_idf_cols)) %>%
+  as.matrix()
 
-summary(rnn_model)
+y_train <- train_dtm %>%
+  pull(bclass) %>%
+  factor() %>%
+  as.numeric() - 1
 
-rnn_model %>% compile(
-  loss = 'binary_crossentropy',
-  optimizer = 'adam',
-  metrics = c('binary_accuracy')
-)
+x_test <- test_dtm %>%
+  ungroup() %>%
+  select(-.id, -bclass) %>%
+  select(all_of(top_idf_cols)) %>%
+  as.matrix()
 
+y_test <- test_dtm %>%
+  pull(bclass) %>%
+  factor() %>%
+  as.numeric() - 1
 
-# Train the binary classification model
-history_binary <- binary_model %>% fit(
-  X_train, y_train_binary,
-  epochs = 10,
-  batch_size = 32
-)
+# RNN
+model_rnn <- keras_model_sequential(input_shape = ncol(x_train)) %>%
+  layer_embedding(input_dim = ncol(x_train), output_dim = 64) %>%
+  layer_gru(128, return_sequences = TRUE) %>%
+  layer_lstm(8) %>%
+  layer_dense(1)
 
-binary_pred<-predict(binary_model, X_test)
-bclass_pred <- factor(ifelse(binary_pred[,2] > 0.5, 1, 0), levels = c(0, 1))
+summary(model_rnn)
 
-conf_matrix_binary <- confusionMatrix(bclass_pred, as.factor(as.numeric(test_data$bclass)-1))
-conf_matrix_binary
+# Compile model for training
+model_rnn %>% compile(loss = 'binary_crossentropy',
+                  optimizer = 'adam',
+                  metrics = 'binary_accuracy')
+
+# Training the model
+history_rnn <- model_rnn %>%
+  fit(x = x_train,
+      y = y_train,
+      validation_split = 0.3,
+      epochs = 5)
 ```
 
