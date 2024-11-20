@@ -1,6 +1,6 @@
 ---
 title: "Summary of exploratory tasks"
-author: 'YOUR NAMES HERE'
+author: 'Bennett Bishop, Hannah Kim, Nikhil Kuniyil, Jiaxin Su'
 date: today
 ---
 
@@ -11,3 +11,5 @@ Does including header content improve predictions? Answer the question and provi
 ### Bigrams
 
 Do bigrams capture additional information relevant to the classification of interest? Answer the question, **briefly** describe what analysis you conducted to arrive at your answer, and provide quantitative evidence supporting your answer.
+
+> *Bigrams capture additional information relevant to the classification of interest, as evidenced by the reduction in AIC from 2372.394 (unigram model) to 2335.656 (bigram-enhanced model). AIC measures model quality, balancing goodness of fit and model complexity, with lower values indicating better models. To arrive at this conclusion, we trained logistic regression models on unigram and bigram features, incorporating principal components from PCA to reduce dimensionality. By comparing the AIC values, we observed a notable improvement (~36.7 points) with the inclusion of bigrams, suggesting that bigram features provide additional meaningful context that unigrams alone cannot capture.*
