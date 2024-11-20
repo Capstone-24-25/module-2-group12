@@ -1,6 +1,6 @@
 ---
 title: "Predictive modeling of claims status"
-author: 'YOUR NAMES HERE'
+author: 'Bennett Bishop, Hannah Kim, Nikhil Kuniyil, Jiaxin Su'
 date: today
 ---
 
@@ -12,13 +12,7 @@ Provide a 3-5 sentence summary of your work on the primary task. Indicate what i
 
 ### Preprocessing
 
-In one paragraph lay out your preprocessing pipeline. No need to provide exact step-by-step detail; just give an overview of the main components:
-
--   what text content was extracted from HTML
-
--   how text was cleaned
-
--   how cleaned text was represented quantitatively
+> *Our preprocessing pipeline begins by extracting text content from the elements of HTML documents, focusing on the main textual information. The extracted text is then cleaned to remove URLs, emails, punctuation, symbols, numbers, and extraneous whitespace, while normalizing case to lowercase and handling contractions and word splits. The cleaned text is tokenized into unigrams (single words) and bigrams (word pairs) while removing stopwords to focus on meaningful terms. Finally, the tokenized text is quantitatively represented using term frequency-inverse document frequency (TF-IDF), capturing the importance of each token or bigram in relation to the document and the entire dataset, and stored in a wide-format matrix for modeling.*
 
 ### Methods
 
