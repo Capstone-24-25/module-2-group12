@@ -34,7 +34,7 @@ library(knitr)
 binary_results_table <- data.frame(
   Metric = c("Accuracy", "Sensitivity", "Specificity"), 
   NN = c(0.803, 0.75, 0.841), 
-  RNN = c(0.574, 0, 1)
+  RNN = c(0.574, 0.490, 0.556)
 )
 
 kable(binary_results_table, format = "markdown", caption = "Binary Classification Results")
