@@ -167,5 +167,25 @@ print(rnn_evaluate)
 ```
 
 
+## Predictions
+```{r}
+# Generating predictions on the test set
+test_predictions <- model_rnn %>%
+  predict(x_test) %>%
+  as.numeric()
+
+test_predictions <- ifelse(test_predictions > 0.5, 1, 0)
+
+# Creating the predictions tibble
+pred_df <- tibble(
+  .id = testing(partitions)$.id,
+  bclass_pred = test_predictions
+)
+
+# Saving predictions as a CSV file
+write_csv(pred_df, "C:/Users/hanna/OneDrive/Documents/GitHub/module-2-group12/results/hannah-binary-class-predictions.csv")
+```
+
+
 
 
