@@ -28,6 +28,7 @@ The training process involves splitting the dataset into 80% training and 20% te
 
 ## Results
 
+Here are the results for the Binary Classification Model:
 ```{r, echo = FALSE}
 library(knitr)
 
@@ -40,5 +41,16 @@ binary_results_table <- data.frame(
 kable(binary_results_table, format = "markdown", caption = "Binary Classification Results")
 ```
 
+Here are the results for the Multiclass Classification Model:
+```{r, echo = FALSE}
+library(knitr)
+
+multiclass_results_table <- data.frame(
+  Metric = c("Accuracy", "Sensitivity", "Specificity"), 
+  SVM = c(0.713, 0.636, 0.913),
+)
+
+kable(multiclass_results_table, format = "markdown", caption = "Multiclass Classification Results")
+```
 
 
