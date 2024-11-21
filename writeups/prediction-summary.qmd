@@ -1,5 +1,5 @@
 ---
-title: "Predictive modeling of claims status"
+title: "Deliverable 2: Findings for Task 4"
 author: 'Bennett Bishop, Hannah Kim, Nikhil Kuniyil, Jiaxin Su'
 date: today
 ---
@@ -8,7 +8,7 @@ date: today
 
 Provide a 3-5 sentence summary of your work on the primary task. Indicate what input data was used, what method was used for binary class predictions, what method was used for multiclass predictions, and what estimated accuracies were achieved.
 
-> *Header and paragraph content was scraped from the raw webpages and processed into term frequencies of word tokens. For binary classification, a two-layer neural network yielded an estimated 81.4% accuracy; for multiclass classification, a support vector machine gave 78% accuracy.*
+> *Header and paragraph content was scraped from the raw webpages and processed into term frequencies of word tokens and transformed into TF-IDF weighted features. To reduce over-fitting, the top 1,000 most frequent tokens were retained. For binary class predictions, a feed-forward neural network model and recurrent neural network model were used with accuracy of 0.784 and 0.574, respectively. For multi-class predictions, a support vector machine model was used with accuracy of ##INPUT VALUE HERE##. *
 
 ### Preprocessing
 
@@ -23,6 +23,18 @@ Describe your final predictive models. Include one paragraph with details on the
 -   model specification and hyperparameter selection
 
 -   training method
+
+^^ ##REMOVE ONCE PARTS ARE FINISHED##
+
+Binary Classification: 
+For binary classification, two machine learning models were used: a feedforward NN and recurrent NN (RNN). 
+
+The feedforward NN was designed with one hidden layer containing 10 neurons and used a sigmoid activation function for the output layer. The model was trained with binary cross-entropy loss and the Adam optimizer, and it was trained for 10 epochs and a batch size of 32. 
+
+The RNN was designed using an embedding layer and a long short-term memory (LSTM) layer with 32 units. The model used a sigmoid activation function for the dense output layer and was trained with binary cross-entropy loss and the Adam optimizer.
+
+Multiclass Classification:
+ADD WRITING HERE##
 
 ### Results
 
