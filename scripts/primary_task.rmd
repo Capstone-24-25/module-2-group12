@@ -1,6 +1,6 @@
 ## Primary Tasks
 
-
+## MULTICLASS CLASSIFICATION - SVM
 ```{r}
 ##MULTICLASS CLASSIFICATION USING SVM
 library(tidyverse)
@@ -75,9 +75,249 @@ multiclass_pred_df <- tibble(
   .id = test_ids,
   mclass.pred = test_predictions
 )
+```
 
-# HANNAH: Add the line below to your code as it will run after mine,
-# add your prediction df below after multiclass_pred_df.
-# I think our DFs look the same so it should work.
-save(multiclass_pred_df, file = "results/preds-group12.RData")
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Loading in packages
+library(tidyverse)
+library(tidymodels)
+library(tidytext)
+library(keras3)
+library(tensorflow)
+library(e1071)
+library(Matrix)
+library(yardstick)
+require(tokenizers)
+require(stopwords)
+```
+
+## Preprocessing
+```{r}
+source('scripts/preprocessing.R')
+
+# load raw data
+load('data/claims-raw.RData')
+
+# preprocess (will take a minute or two)
+claims_clean <- claims_raw %>%
+  parse_data()
+```
+
+## Tokenization
+```{r}
+# Constructing the document term matrix 
+claims_dtm <- claims_clean %>%
+  mutate(text_clean = str_trim(text_clean)) %>%
+  filter(str_length(text_clean) > 5) %>%
+  unnest_tokens(output = 'token', 
+                input = text_clean) %>%
+  group_by(.id, bclass, mclass) %>%
+  count(token) %>%
+  bind_tf_idf(term = token, 
+              document = .id, 
+              n = n) %>%
+  pivot_wider(id_cols = c(.id, bclass, mclass), 
+              names_from = token, 
+              values_from = tf_idf,
+              values_fill = 0) %>%
+  ungroup() 
+
+# Removing stopwords
+stpwords <- stopwords() %>%
+  str_remove_all('[[:punct:]]')
+
+claims_dtm <- claims_dtm[, !names(claims_dtm) %in% stpwords]
+
+# Dimensionality Reduction
+top_tokens <- claims_dtm %>%
+  select(-c(.id, bclass, mclass)) %>%
+  summarise(across(everything(), sum)) %>%
+  pivot_longer(cols = everything(), names_to = "token", values_to = "frequency") %>%
+  arrange(desc(frequency)) %>%
+  slice_head(n = 1000) %>%
+  pull(token)
+
+claims_dtm <- claims_dtm %>%
+  select(all_of(c(".id", "bclass", "mclass", top_tokens)))
+```
+
+## Binary Classification - NN
+```{r}
+# Partitioning data
+set.seed(110124)
+partitions <- claims_dtm %>%
+  initial_split(prop = 0.8)
+
+x_train <- training(partitions) %>%
+  select(all_of(top_tokens)) %>%
+  as.matrix()
+
+y_train <- training(partitions) %>%
+  pull(bclass) %>%
+  factor() %>%
+  as.numeric() - 1
+
+x_test <- testing(partitions) %>%
+  select(all_of(top_tokens)) %>%
+  as.matrix()
+
+y_test <- testing(partitions) %>%
+  pull(bclass) %>%
+  factor() %>%
+  as.numeric() -1
+
+# Defining NN architecture
+model_nn <- keras_model_sequential(input_shape = ncol(x_train)) %>%
+  layer_dense(10) %>%
+  layer_dense(1) %>%
+  layer_activation(activation = 'sigmoid')
+
+summary(model_nn)
+
+saveRDS(model_nn, file = 'results/model_nn.rds')
+
+# Compiling the model
+model_nn %>% compile(
+  loss = 'binary_crossentropy', 
+  optimizer = 'adam', 
+  metrics = list('binary_accuracy', metric_auc()
+))
+
+history_nn <- model_nn %>%
+  fit(x = x_train, 
+      y = y_train, 
+      epochs = 10, 
+      batch_size = 32, 
+      validation_split = 0.2)
+
+nn_evaluate <- model_nn %>% evaluate(x_test, y_test)
+print(nn_evaluate)
+
+# binary accuracy: 0.803, auc: 0.855
+
+```
+
+## Binary Classification - RNN
+```{r}
+# Defining RNN architecture
+model_rnn <- keras_model_sequential() %>%
+  layer_embedding(input_dim = ncol(x_train), output_dim = 128, input_length = ncol(x_train)) %>%
+  layer_lstm(units = 128, dropout = 0.3, recurrent_dropout = 0.3, return_sequences = FALSE) %>%
+  layer_dense(units = 64) %>%
+  layer_dropout(rate = 0.3) %>%
+  layer_dense(units = 1) %>%
+  layer_activation(activation = 'sigmoid')
+
+summary(model_rnn)
+
+saveRDS(model_rnn, file = 'results/model_rnn.rds')
+
+# Compiling the model
+model_rnn %>% compile(
+  loss = 'binary_crossentropy',
+  optimizer = 'adam',
+  metrics = list('binary_accuracy', metric_auc())
+)
+
+# Training the RNN model
+history_rnn <- model_rnn %>%
+  fit(
+    x = x_train,
+    y = y_train,
+    epochs = 10,
+    batch_size = 32,
+    validation_split = 0.2
+  )
+
+# Evaluating the RNN model
+rnn_evaluate <- model_rnn %>% evaluate(x_test, y_test)
+print(rnn_evaluate)
+
+# binary accuracy: 0.574, auc: 0.5
+```
+
+
+## Predictions
+```{r}
+# Generating predictions on the test set
+nn_predictions <- model_nn %>%
+  predict(x_test) %>%
+  as.numeric()
+
+rnn_predictions <- model_rnn %>%
+  predict(x_test) %>%
+  as.numeric()
+
+# Threshold predictions for binary classification
+nn_predictions <- ifelse(nn_predictions > 0.5, 1, 0)
+rnn_predictions <- ifelse(rnn_predictions > 0.5, 1, 0)
+
+# Convert true labels to factors
+y_test_factor <- factor(y_test, levels = c(0, 1))
+
+# Creating tibbles of predictions and true labels
+nn_results <- tibble(
+  truth = y_test_factor, 
+  estimate = factor(nn_predictions, levels = c(0, 1))
+)
+
+rnn_results <- tibble(
+  truth = y_test_factor, 
+  estimate = factor(rnn_predictions, levels = c(0, 1))
+)
+
+# Calculating sensitivity and specificity
+nn_metrics <- nn_results %>%
+  conf_mat(truth, estimate) %>%
+  summary()
+
+rnn_metrics <- rnn_results %>%
+  conf_mat(truth, estimate) %>%
+  summary()
+
+nn_sensitivity <- nn_metrics %>%
+  filter(.metric == "sens") %>%
+  pull(.estimate)
+
+nn_specificity <- nn_metrics %>%
+  filter(.metric == "spec") %>%
+  pull(.estimate)
+
+rnn_sensitivity <- rnn_metrics %>%
+  filter(.metric == "sens") %>%
+  pull(.estimate)
+
+rnn_specificity <- rnn_metrics %>%
+  filter(.metric == "spec") %>%
+  pull(.estimate)
+
+print(nn_sensitivity)
+print(nn_specificity)
+print(rnn_sensitivity)
+print(rnn_specificity)
+
+# Creating the predictions tibble
+pred_df <- tibble(
+  .id = testing(partitions)$.id,
+  bclass_pred = test_predictions
+)
+
+# Saving predictions as a CSV file
+write_csv(pred_df, "results/hannah-binary-class-predictions.csv")
+
+print(head(pred_df))
+```
+
+
+## Save results to preds-group-12.RData file
+```{r}
+# Save predictions to an RData file
+save(multiclass_pred_df, pred_df, file = "results/preds-group12.RData")
 ```
