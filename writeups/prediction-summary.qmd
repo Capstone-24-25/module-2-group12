@@ -8,23 +8,13 @@ date: today
 
 Provide a 3-5 sentence summary of your work on the primary task. Indicate what input data was used, what method was used for binary class predictions, what method was used for multiclass predictions, and what estimated accuracies were achieved.
 
-> *Header and paragraph content was scraped from the raw webpages and processed into term frequencies of word tokens and transformed into TF-IDF weighted features. To reduce over-fitting, the top 1,000 most frequent tokens were retained. For binary class predictions, a feed-forward neural network model and recurrent neural network model were used with accuracy of 0.784 and 0.574, respectively. For multi-class predictions, a support vector machine model was used with accuracy of ##INPUT VALUE HERE##. *
+> *Header and paragraph content was scraped from the raw webpages and processed into term frequencies of word tokens and transformed into TF-IDF weighted features. To reduce over-fitting, the top 1,000 most frequent tokens were retained. For binary class predictions, a feed-forward neural network model and recurrent neural network model were used with accuracy of 78.4% and 57.4%, respectively. For multi-class predictions, a support vector machine model was used with accuracy of 71.3%. *
 
 ### Preprocessing
 
 > *Our preprocessing pipeline begins by extracting text content from the elements of HTML documents, focusing on the main textual information. The extracted text is then cleaned to remove URLs, emails, punctuation, symbols, numbers, and extraneous whitespace, while normalizing case to lowercase and handling contractions and word splits. The cleaned text is tokenized into unigrams (single words) and bigrams (word pairs) while removing stopwords to focus on meaningful terms. Finally, the tokenized text is quantitatively represented using term frequency-inverse document frequency (TF-IDF), capturing the importance of each token or bigram in relation to the document and the entire dataset, and stored in a wide-format matrix for modeling.*
 
 ### Methods
-
-Describe your final predictive models. Include one paragraph with details on the binary classification approach, and one on the multiclass approach. Include for each:
-
--   what ML/statistical method was used
-
--   model specification and hyperparameter selection
-
--   training method
-
-^^ ##REMOVE ONCE PARTS ARE FINISHED##
 
 Binary Classification: 
 For binary classification, two machine learning models were used: a feedforward NN and recurrent NN (RNN). 
@@ -34,7 +24,11 @@ The feedforward NN was designed with one hidden layer containing 10 neurons and 
 The RNN was designed using an embedding layer and a long short-term memory (LSTM) layer with 32 units. The model used a sigmoid activation function for the dense output layer and was trained with binary cross-entropy loss and the Adam optimizer.
 
 Multiclass Classification:
-ADD WRITING HERE##
+For Multiclass Classification, we used a Support Vector Machine (SVM).
+
+The SVM model uses a linear kernel with a default regularization parameter (C = 1.0). The preprocessing involves a text vectorization layer that outputs TF-IDF vectors with a maximum of 5,000 tokens and no additional text standardization.
+
+The training process involves splitting the dataset into 80% training and 20% testing partitions, followed by transforming the text data into numerical features using a TF-IDF-based preprocessing layer. The svm() function is then responsible for training the SVM model, using the resulting TF-IDF vectors and corresponding labels to construct hyperplanes with a linear kernel that classify the text into categories.
 
 ### Results
 
