@@ -1,0 +1,171 @@
+---
+title: "hannah_binaryq4"
+author: "Hannah Kim"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Loading in packages
+library(tidyverse)
+library(tidymodels)
+library(tidytext)
+library(keras3)
+library(tensorflow)
+library(e1071)
+library(Matrix)
+library(yardstick)
+require(tokenizers)
+require(stopwords)
+```
+
+## Preprocessing
+```{r}
+source('C:/Users/hanna/OneDrive/Documents/GitHub/module-2-group12/scripts/preprocessing.R')
+
+# load raw data
+load('C:/Users/hanna/OneDrive/Documents/GitHub/module-2-group12/data/claims-raw.RData')
+
+# preprocess (will take a minute or two)
+claims_clean <- claims_raw %>%
+  parse_data()
+```
+
+## Tokenization
+```{r}
+# Constructing the document term matrix 
+claims_dtm <- claims_clean %>%
+  mutate(text_clean = str_trim(text_clean)) %>%
+  filter(str_length(text_clean) > 5) %>%
+  unnest_tokens(output = 'token', 
+                input = text_clean) %>%
+  group_by(.id, bclass, mclass) %>%
+  count(token) %>%
+  bind_tf_idf(term = token, 
+              document = .id, 
+              n = n) %>%
+  pivot_wider(id_cols = c(.id, bclass, mclass), 
+              names_from = token, 
+              values_from = tf_idf,
+              values_fill = 0) %>%
+  ungroup() 
+
+# Removing stopwords
+stpwords <- stopwords() %>%
+  str_remove_all('[[:punct:]]')
+
+claims_dtm <- claims_dtm[, !names(claims_dtm) %in% stpwords]
+
+# Dimensionality Reduction
+top_tokens <- claims_dtm %>%
+  select(-c(.id, bclass, mclass)) %>%
+  summarise(across(everything(), sum)) %>%
+  pivot_longer(cols = everything(), names_to = "token", values_to = "frequency") %>%
+  arrange(desc(frequency)) %>%
+  slice_head(n = 1000) %>%
+  pull(token)
+
+claims_dtm <- claims_dtm %>%
+  select(all_of(c(".id", "bclass", "mclass", top_tokens)))
+```
+
+## Binary Classification - NN
+```{r}
+# Partitioning data
+set.seed(110124)
+partitions <- claims_dtm %>%
+  initial_split(prop = 0.8)
+
+x_train <- training(partitions) %>%
+  select(all_of(top_tokens)) %>%
+  as.matrix()
+
+y_train <- training(partitions) %>%
+  pull(bclass) %>%
+  factor() %>%
+  as.numeric() - 1
+
+x_test <- testing(partitions) %>%
+  select(all_of(top_tokens)) %>%
+  as.matrix()
+
+y_test <- testing(partitions) %>%
+  pull(bclass) %>%
+  factor() %>%
+  as.numeric() -1
+
+# Defining NN architecture
+model_nn <- keras_model_sequential(input_shape = ncol(x_train)) %>%
+  layer_dense(10) %>%
+  layer_dense(1) %>%
+  layer_activation(activation = 'sigmoid')
+
+summary(model_nn)
+
+saveRDS(model_nn, file = 'C:/Users/hanna/OneDrive/Documents/GitHub/module-2-group12/results/model_nn.rds')
+
+# Compiling the model
+model_nn %>% compile(
+  loss = 'binary_crossentropy', 
+  optimizer = 'adam', 
+  metrics = list('binary_accuracy', metric_auc()
+))
+
+history_nn <- model_nn %>%
+  fit(x = x_train, 
+      y = y_train, 
+      epochs = 10, 
+      batch_size = 32, 
+      validation_split = 0.2)
+
+nn_evaluate <- model_nn %>% evaluate(x_test, y_test)
+print(nn_evaluate)
+
+# binary accuracy: 0.784, auc: 0.856
+
+```
+
+## Binary Classification - RNN
+```{r}
+# Defining RNN architecture
+model_rnn <- keras_model_sequential() %>%
+  layer_embedding(input_dim = ncol(x_train), output_dim = 50, input_length = ncol(x_train)) %>%
+  layer_lstm(units = 32, return_sequences = FALSE) %>%
+  layer_dense(units = 1) %>%
+  layer_activation(activation = 'sigmoid')
+
+summary(model_rnn)
+
+saveRDS(model_rnn, file = 'C:/Users/hanna/OneDrive/Documents/GitHub/module-2-group12/results/model_rnn.rds')
+
+# Compiling the model
+model_rnn %>% compile(
+  loss = 'binary_crossentropy',
+  optimizer = 'adam',
+  metrics = list('binary_accuracy', metric_auc())
+)
+
+# Training the RNN model
+history_rnn <- model_rnn %>%
+  fit(
+    x = x_train,
+    y = y_train,
+    epochs = 10,
+    batch_size = 32,
+    validation_split = 0.2
+  )
+
+# Evaluating the RNN model
+rnn_evaluate <- model_rnn %>% evaluate(x_test, y_test)
+print(rnn_evaluate)
+
+# binary accuracy: 0.574, auc: 0.5
+```
+
+
+
+
