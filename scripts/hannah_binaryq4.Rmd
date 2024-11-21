@@ -125,7 +125,7 @@ history_nn <- model_nn %>%
 nn_evaluate <- model_nn %>% evaluate(x_test, y_test)
 print(nn_evaluate)
 
-# binary accuracy: 0.784, auc: 0.856
+# binary accuracy: 0.803, auc: 0.855
 
 ```
 
@@ -184,6 +184,9 @@ pred_df <- tibble(
 
 # Saving predictions as a CSV file
 write_csv(pred_df, "C:/Users/hanna/OneDrive/Documents/GitHub/module-2-group12/results/hannah-binary-class-predictions.csv")
+
+# Save predictions to an RData file
+save(pred_df, file = "C:/Users/hanna/OneDrive/Documents/GitHub/module-2-group12/results/preds-group12.RData")
 ```
 
 
