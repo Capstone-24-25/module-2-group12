@@ -133,8 +133,10 @@ print(nn_evaluate)
 ```{r}
 # Defining RNN architecture
 model_rnn <- keras_model_sequential() %>%
-  layer_embedding(input_dim = ncol(x_train), output_dim = 50, input_length = ncol(x_train)) %>%
-  layer_lstm(units = 32, return_sequences = FALSE) %>%
+  layer_embedding(input_dim = ncol(x_train), output_dim = 128, input_length = ncol(x_train)) %>%
+  layer_lstm(units = 128, dropout = 0.3, recurrent_dropout = 0.3, return_sequences = FALSE) %>%
+  layer_dense(units = 64) %>%
+  layer_dropout(rate = 0.3) %>%
   layer_dense(units = 1) %>%
   layer_activation(activation = 'sigmoid')
 
@@ -170,11 +172,61 @@ print(rnn_evaluate)
 ## Predictions
 ```{r}
 # Generating predictions on the test set
-test_predictions <- model_rnn %>%
+nn_predictions <- model_nn %>%
   predict(x_test) %>%
   as.numeric()
 
-test_predictions <- ifelse(test_predictions > 0.5, 1, 0)
+rnn_predictions <- model_rnn %>%
+  predict(x_test) %>%
+  as.numeric()
+
+# Threshold predictions for binary classification
+nn_predictions <- ifelse(nn_predictions > 0.5, 1, 0)
+rnn_predictions <- ifelse(rnn_predictions > 0.5, 1, 0)
+
+# Convert true labels to factors
+y_test_factor <- factor(y_test, levels = c(0, 1))
+
+# Creating tibbles of predictions and true labels
+nn_results <- tibble(
+  truth = y_test_factor, 
+  estimate = factor(nn_predictions, levels = c(0, 1))
+)
+
+rnn_results <- tibble(
+  truth = y_test_factor, 
+  estimate = factor(rnn_predictions, levels = c(0, 1))
+)
+
+# Calculating sensitivity and specificity
+nn_metrics <- nn_results %>%
+  conf_mat(truth, estimate) %>%
+  summary()
+
+rnn_metrics <- rnn_results %>%
+  conf_mat(truth, estimate) %>%
+  summary()
+
+nn_sensitivity <- nn_metrics %>%
+  filter(.metric == "sens") %>%
+  pull(.estimate)
+
+nn_specificity <- nn_metrics %>%
+  filter(.metric == "spec") %>%
+  pull(.estimate)
+
+rnn_sensitivity <- rnn_metrics %>%
+  filter(.metric == "sens") %>%
+  pull(.estimate)
+
+rnn_specificity <- rnn_metrics %>%
+  filter(.metric == "spec") %>%
+  pull(.estimate)
+
+print(nn_sensitivity)
+print(nn_specificity)
+print(rnn_sensitivity)
+print(rnn_specificity)
 
 # Creating the predictions tibble
 pred_df <- tibble(
@@ -187,6 +239,8 @@ write_csv(pred_df, "C:/Users/hanna/OneDrive/Documents/GitHub/module-2-group12/re
 
 # Save predictions to an RData file
 save(pred_df, file = "C:/Users/hanna/OneDrive/Documents/GitHub/module-2-group12/results/preds-group12.RData")
+
+print(head(pred_df))
 ```
 
 
