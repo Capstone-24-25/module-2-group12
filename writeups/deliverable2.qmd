@@ -28,6 +28,7 @@ The training process involves splitting the dataset into 80% training and 20% te
 
 ## Results
 
+Here are the results for the Binary Classification Model:
 ```{r, echo = FALSE}
 library(knitr)
 
