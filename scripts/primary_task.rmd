@@ -1,17 +1,20 @@
 ## Primary Tasks
 
-## MULTICLASS CLASSIFICATION USING SVM
 
+```{r}
+##MULTICLASS CLASSIFICATION USING SVM
 library(tidyverse)
 library(tidymodels)
 library(e1071)
 library(keras)
+```
 
+```{r}
 # load cleaned data
-load("data/bennett-claims-clean-example.RData")
+load("data/claims-clean.RData")
 
 
-# partition data
+# partition
 set.seed(110122)
 partitions <- claims_clean %>%
   initial_split(prop = 0.8)
@@ -21,7 +24,7 @@ train_text <- training(partitions) %>%
 train_labels <- training(partitions) %>%
   pull(mclass)
 
-# create test text for later
+# Test text for later
 test_text <- testing(partitions) %>%
   pull(text_clean)
 test_labels <- testing(partitions) %>%
@@ -37,6 +40,7 @@ preprocess_layer <- layer_text_vectorization(
   max_tokens = 5000, # Example token limit
   output_mode = "tf_idf"
 )
+
 
 # Fit the preprocessing layer to the training text
 preprocess_layer %>% adapt(train_text)
@@ -54,7 +58,9 @@ svm_model <- svm(
 
 # Save Model
 saveRDS(svm_model, file = "results/bennett-multiclass-model.rds")
+```
 
+```{r}
 # Load test data
 load("data/claims-test.RData")
 
@@ -65,10 +71,13 @@ test_tfidf <- as.array(preprocess_layer(test_text))
 test_predictions <- predict(svm_model, newdata = test_tfidf)
 
 # Create the predictions tibble
-pred_df <- tibble(
+multiclass_pred_df <- tibble(
   .id = test_ids,
   mclass.pred = test_predictions
 )
 
-# Save predictions as a CSV file
-write_csv(pred_df, "results/bennett-multiclass-predictions.csv")
+# HANNAH: Add the line below to your code as it will run after mine,
+# add your prediction df below after multiclass_pred_df.
+# I think our DFs look the same so it should work.
+save(multiclass_pred_df, file = "results/preds-group12.RData") 
+```
