@@ -11,9 +11,10 @@ library(tidyverse)
 library(tidymodels)
 library(e1071)
 library(keras)
+library(dplyr)
 
 # load cleaned data
-load("data/bennett-claims-clean-example.RData")
+load("data/claims-clean.RData")
 
 
 # partition
@@ -59,7 +60,7 @@ svm_model <- svm(
 )
 
 # Save Model
-saveRDS(svm_model, file = "results/bennett-multiclass-model.rds")
+# saveRDS(svm_model, file = "results/bennett-multiclass-model.rds")
 
 # Load test data
 load("data/claims-test.RData")
@@ -73,7 +74,8 @@ test_predictions <- predict(svm_model, newdata = test_tfidf)
 # Create the predictions tibble
 pred_df <- tibble(
   .id = test_ids,
-  mclass.pred = test_predictions
+  mclass.pred = test_predictions,
+  mclass = test_labels
 )
 
 # Save predictions to an RData file
@@ -83,7 +85,7 @@ save(pred_df, file = "results/preds-group12.RData")
 ## For Checking Accuracy
 # Add a column for correctness
 pred_df <- pred_df %>%
-  mutate(correct = test_predictions == test_labels)
+ mutate(correct = test_predictions == test_labels)
 
 # Save updated predictions to a CSV file
 write_csv(pred_df, "results/bennett-multiclass-predictions-with-accuracy.csv")
@@ -98,3 +100,28 @@ accuracy <- mean(as.numeric(correct_predictions))
 # Print the accuracy
 print(glue::glue("Model Accuracy: {accuracy * 100}%"))
 
+# Convert to factors if not already
+multiclass_pred_df <- pred_df %>%
+  mutate(
+    mclass = as.factor(mclass),
+    mclass.pred = as.factor(mclass.pred)
+  )
+
+# # Calculate accuracy
+accuracy_result <- accuracy(multiclass_pred_df, truth = mclass, estimate = mclass.pred)
+
+# # Calculate sensitivity for each class
+sensitivity_result <- sens(multiclass_pred_df, truth = mclass, estimate = mclass.pred)
+
+# # Calculate specificity for each class
+specificity_result <- spec(multiclass_pred_df, truth = mclass, estimate = mclass.pred)
+
+# # Combine results into a single table
+metrics_table <- bind_rows(
+  accuracy_result,
+  sensitivity_result,
+  specificity_result
+)
+
+# Save metrics_table as an RDS file
+saveRDS(metrics_table, "results/multiclass_metrics_table.rds")

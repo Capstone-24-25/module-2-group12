@@ -79,5 +79,5 @@ multiclass_pred_df <- tibble(
 # HANNAH: Add the line below to your code as it will run after mine,
 # add your prediction df below after multiclass_pred_df.
 # I think our DFs look the same so it should work.
-save(multiclass_pred_df, file = "results/preds-group12.RData") 
+save(multiclass_pred_df, file = "results/preds-group12.RData")
 ```
