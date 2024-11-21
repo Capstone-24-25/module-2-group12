@@ -76,5 +76,25 @@ pred_df <- tibble(
   mclass.pred = test_predictions
 )
 
-# Save predictions as a CSV file
-write_csv(pred_df, "results/bennett-multiclass-predictions.csv")
+# Save predictions to an RData file
+save(pred_df, file = "results/preds-group12.RData")
+
+
+## For Checking Accuracy
+# Add a column for correctness
+pred_df <- pred_df %>%
+  mutate(correct = test_predictions == test_labels)
+
+# Save updated predictions to a CSV file
+write_csv(pred_df, "results/bennett-multiclass-predictions-with-accuracy.csv")
+
+## Print overall accuracy
+# Compare predictions with actual test labels
+correct_predictions <- test_predictions == test_labels
+
+# Calculate accuracy (convert logical to numeric explicitly)
+accuracy <- mean(as.numeric(correct_predictions))
+
+# Print the accuracy
+print(glue::glue("Model Accuracy: {accuracy * 100}%"))
+

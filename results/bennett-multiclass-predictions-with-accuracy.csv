@@ -1,0 +1,429 @@
+.id,mclass.pred,correct
+url2136,Potentially unlawful activity,TRUE
+url1342,N/A: No relevant content.,FALSE
+url2861,N/A: No relevant content.,TRUE
+url767,N/A: No relevant content.,TRUE
+url199,Potentially unlawful activity,TRUE
+url1880,Potentially unlawful activity,FALSE
+url585,N/A: No relevant content.,FALSE
+url426,Possible Fatality,TRUE
+url1037,Physical Activity,TRUE
+url3072,Possible Fatality,TRUE
+url418,N/A: No relevant content.,TRUE
+url1487,Possible Fatality,FALSE
+url724,N/A: No relevant content.,TRUE
+url2402,N/A: No relevant content.,TRUE
+url1031,Possible Fatality,TRUE
+url1605,Physical Activity,TRUE
+url177,Possible Fatality,FALSE
+url1627,N/A: No relevant content.,FALSE
+url1286,N/A: No relevant content.,TRUE
+url127,Physical Activity,FALSE
+url789,Potentially unlawful activity,TRUE
+url2706,N/A: No relevant content.,TRUE
+url468,Physical Activity,TRUE
+url149,Possible Fatality,TRUE
+url2172,N/A: No relevant content.,TRUE
+url2604,Physical Activity,FALSE
+url885,Physical Activity,TRUE
+url583,Potentially unlawful activity,TRUE
+url2599,Other claim content,TRUE
+url2600,Other claim content,FALSE
+url283,Physical Activity,TRUE
+url993,N/A: No relevant content.,TRUE
+url1346,Possible Fatality,TRUE
+url49,N/A: No relevant content.,FALSE
+url752,Possible Fatality,FALSE
+url1424,N/A: No relevant content.,TRUE
+url1100,Possible Fatality,TRUE
+url2963,Possible Fatality,TRUE
+url2562,N/A: No relevant content.,TRUE
+url1957,Physical Activity,TRUE
+url402,N/A: No relevant content.,FALSE
+url1821,N/A: No relevant content.,TRUE
+url829,Physical Activity,TRUE
+url164,N/A: No relevant content.,FALSE
+url1394,Possible Fatality,FALSE
+url740,N/A: No relevant content.,TRUE
+url1649,N/A: No relevant content.,TRUE
+url2334,Potentially unlawful activity,TRUE
+url2899,Possible Fatality,TRUE
+url1481,N/A: No relevant content.,TRUE
+url866,Possible Fatality,FALSE
+url144,Possible Fatality,TRUE
+url667,Possible Fatality,TRUE
+url2090,Potentially unlawful activity,FALSE
+url3017,N/A: No relevant content.,TRUE
+url1227,N/A: No relevant content.,TRUE
+url592,Possible Fatality,TRUE
+url2177,N/A: No relevant content.,FALSE
+url815,N/A: No relevant content.,TRUE
+url1389,N/A: No relevant content.,TRUE
+url999,N/A: No relevant content.,TRUE
+url754,N/A: No relevant content.,TRUE
+url1046,Physical Activity,TRUE
+url3040,Possible Fatality,TRUE
+url2348,Other claim content,FALSE
+url1753,Possible Fatality,TRUE
+url3051,N/A: No relevant content.,TRUE
+url1853,Possible Fatality,FALSE
+url2819,N/A: No relevant content.,TRUE
+url2374,N/A: No relevant content.,TRUE
+url1175,N/A: No relevant content.,TRUE
+url1163,Physical Activity,FALSE
+url455,N/A: No relevant content.,TRUE
+url933,N/A: No relevant content.,TRUE
+url686,N/A: No relevant content.,TRUE
+url1076,Possible Fatality,TRUE
+url2607,N/A: No relevant content.,TRUE
+url2797,Physical Activity,FALSE
+url2838,Possible Fatality,TRUE
+url117,Potentially unlawful activity,FALSE
+url52,N/A: No relevant content.,TRUE
+url976,N/A: No relevant content.,TRUE
+url1969,Physical Activity,TRUE
+url2508,N/A: No relevant content.,TRUE
+url692,N/A: No relevant content.,TRUE
+url242,N/A: No relevant content.,TRUE
+url1764,Potentially unlawful activity,TRUE
+url2157,Possible Fatality,FALSE
+url2936,Possible Fatality,TRUE
+url3075,N/A: No relevant content.,FALSE
+url2268,N/A: No relevant content.,FALSE
+url3009,N/A: No relevant content.,FALSE
+url1613,N/A: No relevant content.,TRUE
+url2589,N/A: No relevant content.,TRUE
+url1891,N/A: No relevant content.,TRUE
+url2656,Possible Fatality,TRUE
+url445,N/A: No relevant content.,TRUE
+url2254,N/A: No relevant content.,FALSE
+url2433,Physical Activity,TRUE
+url2780,N/A: No relevant content.,TRUE
+url2290,N/A: No relevant content.,TRUE
+url2364,N/A: No relevant content.,TRUE
+url2857,Other claim content,FALSE
+url1372,N/A: No relevant content.,TRUE
+url2553,N/A: No relevant content.,TRUE
+url1683,Potentially unlawful activity,TRUE
+url1403,N/A: No relevant content.,TRUE
+url2632,N/A: No relevant content.,TRUE
+url1272,Possible Fatality,FALSE
+url403,N/A: No relevant content.,FALSE
+url1847,N/A: No relevant content.,FALSE
+url1914,Possible Fatality,FALSE
+url1045,Physical Activity,TRUE
+url2570,Other claim content,FALSE
+url1171,Possible Fatality,TRUE
+url1517,Potentially unlawful activity,TRUE
+url2748,N/A: No relevant content.,FALSE
+url391,Potentially unlawful activity,TRUE
+url480,N/A: No relevant content.,FALSE
+url236,N/A: No relevant content.,TRUE
+url96,N/A: No relevant content.,FALSE
+url1456,Possible Fatality,FALSE
+url1148,Possible Fatality,TRUE
+url19,Possible Fatality,FALSE
+url612,N/A: No relevant content.,FALSE
+url642,N/A: No relevant content.,FALSE
+url908,N/A: No relevant content.,TRUE
+url1669,Possible Fatality,TRUE
+url1995,Other claim content,FALSE
+url646,Possible Fatality,FALSE
+url639,N/A: No relevant content.,TRUE
+url1333,Possible Fatality,TRUE
+url3030,N/A: No relevant content.,FALSE
+url1540,Potentially unlawful activity,TRUE
+url2065,N/A: No relevant content.,TRUE
+url1592,Possible Fatality,FALSE
+url2326,Potentially unlawful activity,TRUE
+url1560,N/A: No relevant content.,TRUE
+url1834,N/A: No relevant content.,TRUE
+url530,N/A: No relevant content.,FALSE
+url2608,Other claim content,TRUE
+url936,N/A: No relevant content.,FALSE
+url1308,Other claim content,FALSE
+url827,Possible Fatality,TRUE
+url1168,N/A: No relevant content.,TRUE
+url2787,Physical Activity,TRUE
+url716,Possible Fatality,TRUE
+url61,Possible Fatality,TRUE
+url1331,N/A: No relevant content.,TRUE
+url2881,Possible Fatality,FALSE
+url2465,N/A: No relevant content.,TRUE
+url358,N/A: No relevant content.,TRUE
+url2214,Potentially unlawful activity,TRUE
+url3059,Possible Fatality,TRUE
+url3080,Potentially unlawful activity,TRUE
+url250,Potentially unlawful activity,FALSE
+url2655,N/A: No relevant content.,TRUE
+url1226,N/A: No relevant content.,TRUE
+url367,Possible Fatality,TRUE
+url2702,N/A: No relevant content.,TRUE
+url472,Possible Fatality,TRUE
+url662,Potentially unlawful activity,TRUE
+url824,N/A: No relevant content.,TRUE
+url454,Potentially unlawful activity,TRUE
+url1136,N/A: No relevant content.,TRUE
+url1027,Possible Fatality,TRUE
+url1170,Possible Fatality,TRUE
+url281,Other claim content,FALSE
+url1129,Other claim content,TRUE
+url988,Other claim content,FALSE
+url2298,Potentially unlawful activity,TRUE
+url1246,N/A: No relevant content.,FALSE
+url1602,Possible Fatality,TRUE
+url2418,N/A: No relevant content.,TRUE
+url1604,N/A: No relevant content.,TRUE
+url745,Possible Fatality,TRUE
+url249,N/A: No relevant content.,TRUE
+url2978,N/A: No relevant content.,TRUE
+url2974,Possible Fatality,TRUE
+url1657,N/A: No relevant content.,FALSE
+url1169,N/A: No relevant content.,TRUE
+url1624,N/A: No relevant content.,FALSE
+url1406,Other claim content,FALSE
+url1984,N/A: No relevant content.,TRUE
+url718,Potentially unlawful activity,TRUE
+url2227,Possible Fatality,TRUE
+url1769,N/A: No relevant content.,TRUE
+url276,N/A: No relevant content.,TRUE
+url2482,N/A: No relevant content.,TRUE
+url737,Possible Fatality,TRUE
+url1247,Possible Fatality,FALSE
+url2512,N/A: No relevant content.,TRUE
+url1545,Potentially unlawful activity,FALSE
+url1067,N/A: No relevant content.,TRUE
+url1767,Possible Fatality,TRUE
+url1035,Possible Fatality,TRUE
+url2872,Possible Fatality,TRUE
+url268,N/A: No relevant content.,FALSE
+url947,Potentially unlawful activity,TRUE
+url412,N/A: No relevant content.,TRUE
+url2913,Other claim content,FALSE
+url1660,Possible Fatality,TRUE
+url1201,N/A: No relevant content.,TRUE
+url2476,N/A: No relevant content.,TRUE
+url2420,N/A: No relevant content.,FALSE
+url1527,Other claim content,TRUE
+url2988,N/A: No relevant content.,TRUE
+url1056,N/A: No relevant content.,TRUE
+url1844,N/A: No relevant content.,TRUE
+url1881,N/A: No relevant content.,TRUE
+url1939,Possible Fatality,FALSE
+url2117,N/A: No relevant content.,TRUE
+url115,N/A: No relevant content.,TRUE
+url2958,Possible Fatality,TRUE
+url1214,N/A: No relevant content.,TRUE
+url2919,Potentially unlawful activity,TRUE
+url2247,Potentially unlawful activity,TRUE
+url2494,N/A: No relevant content.,TRUE
+url751,N/A: No relevant content.,TRUE
+url1747,Possible Fatality,TRUE
+url1976,Potentially unlawful activity,TRUE
+url1103,N/A: No relevant content.,FALSE
+url3014,N/A: No relevant content.,FALSE
+url2440,N/A: No relevant content.,TRUE
+url1213,N/A: No relevant content.,TRUE
+url1261,N/A: No relevant content.,TRUE
+url1815,N/A: No relevant content.,TRUE
+url2487,Possible Fatality,FALSE
+url929,Possible Fatality,TRUE
+url1760,Potentially unlawful activity,TRUE
+url1930,N/A: No relevant content.,TRUE
+url2349,N/A: No relevant content.,FALSE
+url1885,Physical Activity,FALSE
+url2610,Other claim content,TRUE
+url2858,N/A: No relevant content.,TRUE
+url1258,Other claim content,TRUE
+url1713,N/A: No relevant content.,FALSE
+url3016,Possible Fatality,FALSE
+url1921,Possible Fatality,TRUE
+url1495,Physical Activity,TRUE
+url1065,Possible Fatality,TRUE
+url2242,Potentially unlawful activity,TRUE
+url138,Potentially unlawful activity,TRUE
+url2405,Possible Fatality,FALSE
+url1160,N/A: No relevant content.,TRUE
+url2496,N/A: No relevant content.,TRUE
+url384,Potentially unlawful activity,TRUE
+url1758,Other claim content,FALSE
+url582,Possible Fatality,TRUE
+url2004,Other claim content,FALSE
+url22,Possible Fatality,TRUE
+url202,Other claim content,FALSE
+url1967,Physical Activity,TRUE
+url950,Potentially unlawful activity,TRUE
+url1832,N/A: No relevant content.,TRUE
+url2853,Other claim content,FALSE
+url1992,N/A: No relevant content.,FALSE
+url1831,Possible Fatality,TRUE
+url2590,N/A: No relevant content.,TRUE
+url1328,Possible Fatality,TRUE
+url191,Possible Fatality,TRUE
+url1243,N/A: No relevant content.,FALSE
+url427,Possible Fatality,TRUE
+url2006,Possible Fatality,TRUE
+url1739,N/A: No relevant content.,FALSE
+url631,Potentially unlawful activity,FALSE
+url2434,Possible Fatality,TRUE
+url3066,Other claim content,TRUE
+url1664,Potentially unlawful activity,TRUE
+url207,Potentially unlawful activity,TRUE
+url1991,Potentially unlawful activity,TRUE
+url1555,N/A: No relevant content.,FALSE
+url1078,Possible Fatality,TRUE
+url147,N/A: No relevant content.,FALSE
+url1362,N/A: No relevant content.,TRUE
+url2639,Physical Activity,FALSE
+url345,Possible Fatality,TRUE
+url2592,N/A: No relevant content.,TRUE
+url288,Other claim content,FALSE
+url1599,Physical Activity,TRUE
+url1260,N/A: No relevant content.,FALSE
+url3012,N/A: No relevant content.,TRUE
+url979,Other claim content,FALSE
+url2417,Possible Fatality,TRUE
+url2082,N/A: No relevant content.,TRUE
+url2744,Other claim content,TRUE
+url1518,Potentially unlawful activity,TRUE
+url513,N/A: No relevant content.,TRUE
+url2799,N/A: No relevant content.,TRUE
+url1662,N/A: No relevant content.,TRUE
+url2698,N/A: No relevant content.,TRUE
+url2385,N/A: No relevant content.,FALSE
+url1589,Possible Fatality,TRUE
+url1843,N/A: No relevant content.,TRUE
+url3049,N/A: No relevant content.,TRUE
+url399,Other claim content,TRUE
+url274,N/A: No relevant content.,TRUE
+url2017,Possible Fatality,TRUE
+url2057,N/A: No relevant content.,FALSE
+url2991,N/A: No relevant content.,TRUE
+url1989,N/A: No relevant content.,FALSE
+url1087,N/A: No relevant content.,FALSE
+url386,Physical Activity,TRUE
+url1787,N/A: No relevant content.,FALSE
+url549,N/A: No relevant content.,TRUE
+url1572,Possible Fatality,TRUE
+url819,Physical Activity,FALSE
+url475,N/A: No relevant content.,TRUE
+url2071,N/A: No relevant content.,TRUE
+url38,Physical Activity,TRUE
+url2820,Possible Fatality,FALSE
+url303,N/A: No relevant content.,TRUE
+url2637,N/A: No relevant content.,TRUE
+url69,Potentially unlawful activity,FALSE
+url1505,N/A: No relevant content.,TRUE
+url63,N/A: No relevant content.,TRUE
+url2509,N/A: No relevant content.,TRUE
+url1588,Possible Fatality,TRUE
+url2111,Possible Fatality,TRUE
+url969,Possible Fatality,TRUE
+url143,N/A: No relevant content.,TRUE
+url1144,N/A: No relevant content.,FALSE
+url329,N/A: No relevant content.,FALSE
+url1140,N/A: No relevant content.,FALSE
+url1512,N/A: No relevant content.,FALSE
+url1650,N/A: No relevant content.,TRUE
+url992,N/A: No relevant content.,FALSE
+url2461,N/A: No relevant content.,TRUE
+url2532,N/A: No relevant content.,TRUE
+url92,Possible Fatality,TRUE
+url1557,Possible Fatality,TRUE
+url495,Possible Fatality,FALSE
+url620,Potentially unlawful activity,TRUE
+url1296,Potentially unlawful activity,TRUE
+url2929,N/A: No relevant content.,FALSE
+url961,N/A: No relevant content.,FALSE
+url573,Other claim content,FALSE
+url15,N/A: No relevant content.,TRUE
+url192,Potentially unlawful activity,TRUE
+url2572,N/A: No relevant content.,TRUE
+url2141,Other claim content,TRUE
+url3033,Potentially unlawful activity,TRUE
+url2615,Potentially unlawful activity,TRUE
+url1945,N/A: No relevant content.,FALSE
+url774,N/A: No relevant content.,FALSE
+url545,Possible Fatality,TRUE
+url2569,N/A: No relevant content.,FALSE
+url505,Possible Fatality,FALSE
+url2829,N/A: No relevant content.,TRUE
+url429,Possible Fatality,TRUE
+url126,N/A: No relevant content.,TRUE
+url2332,Other claim content,FALSE
+url1732,Physical Activity,TRUE
+url64,Potentially unlawful activity,FALSE
+url267,Possible Fatality,TRUE
+url1433,N/A: No relevant content.,TRUE
+url1504,N/A: No relevant content.,TRUE
+url1965,Possible Fatality,FALSE
+url602,Possible Fatality,FALSE
+url550,N/A: No relevant content.,TRUE
+url1289,N/A: No relevant content.,FALSE
+url1785,N/A: No relevant content.,FALSE
+url2066,N/A: No relevant content.,FALSE
+url1314,Other claim content,TRUE
+url1473,N/A: No relevant content.,TRUE
+url1397,N/A: No relevant content.,TRUE
+url4,N/A: No relevant content.,FALSE
+url589,Possible Fatality,TRUE
+url382,N/A: No relevant content.,TRUE
+url902,Potentially unlawful activity,TRUE
+url271,N/A: No relevant content.,TRUE
+url2294,Possible Fatality,TRUE
+url1274,Possible Fatality,FALSE
+url2161,N/A: No relevant content.,TRUE
+url2666,N/A: No relevant content.,TRUE
+url762,N/A: No relevant content.,FALSE
+url2406,N/A: No relevant content.,TRUE
+url1244,N/A: No relevant content.,TRUE
+url487,N/A: No relevant content.,TRUE
+url142,Potentially unlawful activity,TRUE
+url764,N/A: No relevant content.,FALSE
+url1862,Potentially unlawful activity,TRUE
+url2413,Possible Fatality,TRUE
+url287,N/A: No relevant content.,FALSE
+url2705,Potentially unlawful activity,TRUE
+url839,N/A: No relevant content.,TRUE
+url664,N/A: No relevant content.,TRUE
+url1305,Possible Fatality,TRUE
+url3081,Potentially unlawful activity,TRUE
+url2753,Potentially unlawful activity,TRUE
+url2533,N/A: No relevant content.,TRUE
+url1007,Potentially unlawful activity,TRUE
+url1749,Physical Activity,TRUE
+url2336,Potentially unlawful activity,TRUE
+url1309,N/A: No relevant content.,TRUE
+url1353,N/A: No relevant content.,TRUE
+url1091,N/A: No relevant content.,TRUE
+url2905,N/A: No relevant content.,TRUE
+url1553,N/A: No relevant content.,FALSE
+url1122,Physical Activity,TRUE
+url2667,N/A: No relevant content.,TRUE
+url168,Possible Fatality,TRUE
+url2218,Possible Fatality,TRUE
+url2630,N/A: No relevant content.,TRUE
+url526,Possible Fatality,TRUE
+url619,Potentially unlawful activity,TRUE
+url1597,Possible Fatality,FALSE
+url1622,N/A: No relevant content.,TRUE
+url2091,N/A: No relevant content.,FALSE
+url392,Possible Fatality,TRUE
+url3054,N/A: No relevant content.,TRUE
+url174,Potentially unlawful activity,TRUE
+url855,Possible Fatality,TRUE
+url51,N/A: No relevant content.,FALSE
+url2688,Potentially unlawful activity,FALSE
+url1748,Physical Activity,FALSE
+url729,N/A: No relevant content.,TRUE
+url421,N/A: No relevant content.,FALSE
+url2625,N/A: No relevant content.,TRUE
+url953,N/A: No relevant content.,TRUE
+url1051,Physical Activity,TRUE
+url2055,N/A: No relevant content.,TRUE
+url1203,N/A: No relevant content.,TRUE
+url2366,N/A: No relevant content.,TRUE
+url2583,N/A: No relevant content.,TRUE
+url2511,N/A: No relevant content.,TRUE
+url1911,Potentially unlawful activity,TRUE
+url698,Other claim content,TRUE
